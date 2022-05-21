@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation.xml"
+    app:startDestination="@id/fargment_bottom_navigation">
+
+    <fragment
+        android:id="@+id/fargment_bottom_navigation"
+        android:name="by.hometrainng.mvvmkoinhw6.fragments.BottomNavFragment"
+        tools:layout="@layout/fragment_bottom_nav">
+
+        <action
+            android:id="@+id/to_details"
+            app:destination="@+id/fargment_details"
+            />
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/fargment_details"
+        android:name="by.hometrainng.mvvmkoinhw6.fragments.BeerDetailsFragment"
+        tools:layout="@layout/fragment_beer_details">
+
+        <argument
+            android:name="beer_id"
+            app:argType="integer"/>
+    </fragment>
+
+</navigation>
