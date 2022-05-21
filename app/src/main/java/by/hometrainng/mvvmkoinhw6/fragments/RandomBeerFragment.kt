@@ -6,11 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import by.hometrainng.mvvmkoinhw6.databinding.FragmentRandomBeerBinding
+import by.hometrainng.mvvmkoinhw6.viewModels.RandomBeerViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RandomBeerFragment: Fragment() {
 
     private var _binding : FragmentRandomBeerBinding? = null
     private val binding get() = requireNotNull(_binding)
+
+    private val randomBeerViewModel by viewModel<RandomBeerViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
