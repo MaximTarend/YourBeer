@@ -28,6 +28,8 @@ class BeerDetailsFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.name.text = "ты меня нашел"
     }
 
     override fun onDestroyView() {

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import by.hometrainng.mvvmkoinhw6.databinding.ListItemBinding
 import by.hometrainng.mvvmkoinhw6.model.Beer
+import coil.load
 
 class BeerListAdapter(
     context: Context,
@@ -36,7 +37,6 @@ class BeerListAdapter(
             override fun areContentsTheSame(oldItem: Beer, newItem: Beer): Boolean {
                 return oldItem.name == newItem.name && oldItem.imageURL == newItem.imageURL
             }
-
         }
     }
 }
@@ -47,7 +47,8 @@ class ItemViewHolder(
 ): RecyclerView.ViewHolder(binding.root) {
     fun bind (item: Beer) {
         with(binding) {
-
+            image.load(item.imageURL)
+            name.text = item.name
 
             root.setOnClickListener {
                 onClicked(item)

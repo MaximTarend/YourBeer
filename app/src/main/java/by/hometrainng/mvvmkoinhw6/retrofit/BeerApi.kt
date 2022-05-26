@@ -7,6 +7,7 @@ import retrofit2.http.Query
 
 interface BeerApi {
 
+
     @GET("beers")
     suspend fun getAllBeers(
         @Query("page") page: Int,

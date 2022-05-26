@@ -6,8 +6,12 @@ import kotlinx.coroutines.withContext
 
 class BeerRepository(private val beerApi: BeerApi) {
 
+/*    suspend fun getAllBeers() = withContext(Dispatchers.IO) {
+        beerApi.getAllBeers()
+    }*/
+
     suspend fun getAllBeers(page: Int, perPage: Int) = withContext(Dispatchers.IO) {
-        beerApi.getAllBeers(page, perPage) // TODO paging
+        beerApi.getAllBeers(page, perPage)
     }
 
     suspend fun getBeerDetails(id: Int) = withContext(Dispatchers.IO) {

@@ -8,12 +8,12 @@ import com.google.gson.annotations.SerializedName
 @Entity
 data class Beer(
     @PrimaryKey
-    val id: Int = 0,
+    val id: Int,
     @ColumnInfo(name = "name")
-    val name: String = "",
+    val name: String,
     @ColumnInfo(name = "description")
-    val description: String = "",
+    val description: String,
     @ColumnInfo(name = "imageURL")
     @SerializedName("image_url")
-    val imageURL: String = ""
+    val imageURL: String
 )

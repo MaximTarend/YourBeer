@@ -5,23 +5,51 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import by.hometrainng.mvvmkoinhw6.R
+import by.hometrainng.mvvmkoinhw6.adapters.BeerListAdapter
 import by.hometrainng.mvvmkoinhw6.databinding.FragmentBeerListBinding
 import by.hometrainng.mvvmkoinhw6.repository.BeerRepository
 import by.hometrainng.mvvmkoinhw6.room.AppDatabase
 import by.hometrainng.mvvmkoinhw6.viewModels.ListViewModel
+import by.hometrainng.oroutineshw5.extentions.addPaginationScrollListener
+import by.hometrainng.oroutineshw5.extentions.addSpaceDecoration
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class BeerListFragment : Fragment() {
 
     private var _binding: FragmentBeerListBinding? = null
     private val binding get() = requireNotNull(_binding)
 
-    private val beerRepository by inject<BeerRepository>()
+    private val listViewModel by viewModel<ListViewModel>()
+
+    private val adapter by lazy(LazyThreadSafetyMode.NONE) {
+        BeerListAdapter(requireContext()) { beer ->
+/*            (parentFragmentManager.findFragmentById(R.id.page_container) as NavHostFragment)
+                .navController*/
+            findNavController()
+                .navigate(
+                    BeerListFragmentDirections.toDetails(beer.id)
+                )
+        }
+    }
+/*    private val beerRepository by inject<BeerRepository>()
     private val appDatabase by inject<AppDatabase>()
 
-    private val listViewModel by viewModel<ListViewModel>()
+    private val _paginationFlow = MutableStateFlow(LoadingState.LOADING)
+    private val paginationFlow = _paginationFlow.asSharedFlow()
+
+    enum class LoadingState {
+        LOADING, NOT_LOADING
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,10 +63,50 @@ class BeerListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // корутина
+/*        viewLifecycleOwner.lifecycleScope.launch {
+            val beers = beerRepository.getAllBeers()
+            adapter.submitList(beers)
+        }*/
+
+/*       //  флоу
+       paginationFlow
+            .filter { it == LoadingState.LOADING }
+            .map {
+                beerRepository.getAllBeers(1, 25)
+            }
+            .onEach {
+                appDatabase.beerDao().insertBeers(it)
+            }
+            .onEach { adapter.submitList(it) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)*/
+
+        with(binding) {
+            val linearLayoutManager = LinearLayoutManager(view.context)
+            recyclerView.adapter = adapter
+            recyclerView.layoutManager = linearLayoutManager
+            recyclerView.addSpaceDecoration(SPACE)
+            recyclerView.addPaginationScrollListener(linearLayoutManager, 25) {
+                listViewModel.onLoadMore()
+            }
+
+        // флоу с МВВМ
+            listViewModel
+                .dataFlow
+                .onEach {
+                    adapter.submitList(it)
+                }
+                .launchIn(viewLifecycleOwner.lifecycleScope)
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val SPACE = 16
     }
 }

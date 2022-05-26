@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottom_navigation"
-    app:startDestination="@id/list_navigation">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/list_navigation"
+    app:startDestination="@id/list">
 
-    <include app:graph="@navigation/list_navigation"/>
-    <include app:graph="@navigation/random_navigation"/>
-
-
-<!--    <fragment
+    <fragment
         android:id="@+id/list"
         android:name="by.hometrainng.mvvmkoinhw6.fragments.BeerListFragment"
         tools:layout="@layout/fragment_beer_list">
@@ -20,14 +17,14 @@
 
     </fragment>
 
-
     <fragment
-        android:id="@+id/random"
-        android:name="by.hometrainng.mvvmkoinhw6.fragments.RandomBeerFragment"
-        tools:layout="@layout/fragment_random_beer">
+        android:id="@+id/fragment_details"
+        android:name="by.hometrainng.mvvmkoinhw6.fragments.BeerDetailsFragment"
+        tools:layout="@layout/fragment_beer_details">
 
-    </fragment>-->
-
-
+        <argument
+            android:name="beer_id"
+            app:argType="integer"/>
+    </fragment>
 
 </navigation>

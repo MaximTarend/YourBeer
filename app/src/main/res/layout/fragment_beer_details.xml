@@ -7,12 +7,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
+<!--    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_character"
         style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Beer details" />
+        app:title="Beer details" />-->
 
     <ImageView
         android:id="@+id/image"
