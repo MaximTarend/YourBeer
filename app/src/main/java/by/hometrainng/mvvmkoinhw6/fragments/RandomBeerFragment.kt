@@ -44,7 +44,7 @@ class RandomBeerFragment: Fragment() {
             buttomRandom.setOnClickListener{
 
                 randomBeerViewModel
-                    .randomDataFlow
+                    .loadRandomFlow
                     .onEach {
                         when(it) {
                             is LceState.Content<Beer> -> {
