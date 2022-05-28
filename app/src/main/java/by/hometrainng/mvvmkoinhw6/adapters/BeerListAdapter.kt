@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import by.hometrainng.mvvmkoinhw6.databinding.ListItemBinding
+import by.hometrainng.mvvmkoinhw6.databinding.LoadingItemBinding
 import by.hometrainng.mvvmkoinhw6.model.Beer
+import by.hometrainng.mvvmkoinhw6.model.LceState
 import coil.load
 
 class BeerListAdapter(
@@ -18,17 +20,15 @@ class BeerListAdapter(
     private val layoutInflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        return ItemViewHolder(
-            binding = ListItemBinding.inflate(layoutInflater, parent, false),
-            onClicked = onClicked
-        )
-    }
+        return  ItemViewHolder(
+                binding = ListItemBinding.inflate(layoutInflater, parent, false),
+                onClicked = onClicked
+            )
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(getItem(position))
     }
 
     companion object {
+
         private val  DIFF_UTIL = object : DiffUtil.ItemCallback<Beer>() {
             override fun areItemsTheSame(oldItem: Beer, newItem: Beer): Boolean {
                 return oldItem.id == newItem.id
@@ -38,6 +38,10 @@ class BeerListAdapter(
                 return oldItem.name == newItem.name && oldItem.imageURL == newItem.imageURL
             }
         }
+    }
+
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 }
 
@@ -56,3 +60,7 @@ class ItemViewHolder(
         }
     }
 }
+
+class LoadingViewHolder(
+    binding: LoadingItemBinding
+): RecyclerView.ViewHolder(binding.root)

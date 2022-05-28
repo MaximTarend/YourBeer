@@ -7,13 +7,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-<!--    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_character"
-        style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="Beer details" />-->
-
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
@@ -28,12 +21,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:textSize="25sp"
         tools:text="name" />
 
-    <TextView
-        android:id="@+id/species"
+    <ScrollView
+        android:id="@+id/scroll_description"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="Description" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:padding="16dp">
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            tools:text="Description" />
+
+    </ScrollView>
+
 
 </LinearLayout>

@@ -2,6 +2,8 @@ package by.hometrainng.mvvmkoinhw6.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import by.hometrainng.mvvmkoinhw6.model.Beer
+import by.hometrainng.mvvmkoinhw6.model.LceState
 import by.hometrainng.mvvmkoinhw6.repository.BeerRepository
 import by.hometrainng.mvvmkoinhw6.room.AppDatabase
 import kotlinx.coroutines.channels.BufferOverflow
@@ -26,18 +28,25 @@ class ListViewModel(
     val dataFlow = loadMoreFlow
         .filter { !isLoading }
         .onEach { isLoading = true }
-        .map { beerRepository.getAllBeers(currentPage, PAGE_SIZE) }
+        .map {
+            runCatching { beerRepository.getAllBeers(currentPage, PAGE_SIZE) }
+                .fold(
+                    onSuccess = { it },
+                    onFailure = { error("Upload Failure") }
+                )
+        }
         .onEach {
-            println()
-            appDatabase.beerDao().insertBeers(it)
-            isLoading = false
-            currentPage++
+                    appDatabase.beerDao().insertBeers(it)
+                    isLoading = false
+                    currentPage++
         }
         .runningReduce { accumulator, value -> accumulator + value }
         .onStart { emit(appDatabase.beerDao().getBeers()) }
-//        .shareIn(
-//            viewModelScope, SharingStarted.Eagerly, 1
-//        )
+        .shareIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            replay = 1
+        )
 
     fun onLoadMore() {
         loadMoreFlow.tryEmit(Unit)

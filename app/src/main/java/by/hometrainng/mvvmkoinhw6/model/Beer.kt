@@ -11,9 +11,8 @@ data class Beer(
     val id: Int,
     @ColumnInfo(name = "name")
     val name: String,
-    @ColumnInfo(name = "description")
     val description: String,
-    @ColumnInfo(name = "imageURL")
     @SerializedName("image_url")
-    val imageURL: String
+    val imageURL: String,
+
 )

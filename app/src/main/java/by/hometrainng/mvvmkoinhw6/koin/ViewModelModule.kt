@@ -9,6 +9,6 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { ListViewModel(get(), get()) }
-    viewModel { DetailsViewModel(get()) }
+    viewModel { (id: Int) -> DetailsViewModel(id, get()) }
     viewModel { RandomBeerViewModel(get()) }
 }

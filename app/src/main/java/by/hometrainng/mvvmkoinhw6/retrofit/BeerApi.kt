@@ -15,10 +15,10 @@ interface BeerApi {
     ): List<Beer>
 
     @GET("beers/{id}")
-    suspend fun gerBeerById(
+    suspend fun getBeerById(
         @Path("id") id : Int
-    ) : Beer
+    ) : List<Beer>
 
     @GET("beers/random")
-    suspend fun getRandomBeer() : Beer
+    suspend fun getRandomBeer() : List<Beer>
 }
