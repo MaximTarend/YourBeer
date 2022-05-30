@@ -29,6 +29,7 @@ class RandomBeerFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         return FragmentRandomBeerBinding.inflate(inflater, container, false)
             .also { _binding = it }
             .root

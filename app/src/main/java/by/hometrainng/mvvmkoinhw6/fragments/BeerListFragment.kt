@@ -60,11 +60,10 @@ class BeerListFragment : Fragment() {
             recyclerView.adapter = adapter
             recyclerView.layoutManager = linearLayoutManager
             recyclerView.addSpaceDecoration(SPACE)
-            recyclerView.addPaginationScrollListener(linearLayoutManager, 25) {
+            recyclerView.addPaginationScrollListener(linearLayoutManager, ITEMS_TO_LOAD) {
                 listViewModel.onLoadMore()
             }
 
-        // флоу с МВВМ
             listViewModel
                 .dataFlow
                 .onEach {
@@ -81,5 +80,6 @@ class BeerListFragment : Fragment() {
 
     companion object {
         private const val SPACE = 16
+        private const val ITEMS_TO_LOAD = 16
     }
 }
