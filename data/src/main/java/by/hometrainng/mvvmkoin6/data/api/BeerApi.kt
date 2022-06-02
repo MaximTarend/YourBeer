@@ -1,6 +1,6 @@
-package by.hometrainng.mvvmkoinhw6.retrofit
+package by.hometrainng.mvvmkoin6.data.api
 
-import by.hometrainng.mvvmkoinhw6.model.Beer
+import by.hometrainng.mvvmkoin6.data.model.BeerDTO
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -12,13 +12,13 @@ interface BeerApi {
     suspend fun getAllBeers(
         @Query("page") page: Int,
         @Query("per_page") perPage: Int
-    ): List<Beer>
+    ): List<BeerDTO>
 
     @GET("beers/{id}")
     suspend fun getBeerById(
         @Path("id") id : Int
-    ) : List<Beer>
+    ) : List<BeerDTO>
 
     @GET("beers/random")
-    suspend fun getRandomBeer() : List<Beer>
+    suspend fun getRandomBeer() : List<BeerDTO>
 }

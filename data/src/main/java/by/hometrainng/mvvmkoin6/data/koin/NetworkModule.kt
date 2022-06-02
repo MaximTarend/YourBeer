@@ -1,6 +1,6 @@
-package by.hometrainng.mvvmkoinhw6.koin
+package by.hometrainng.mvvmkoin6.data.koin
 
-import by.hometrainng.mvvmkoinhw6.retrofit.BeerApi
+import by.hometrainng.mvvmkoin6.data.api.BeerApi
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit

@@ -1,7 +1,7 @@
-package by.hometrainng.mvvmkoinhw6.koin
+package by.hometrainng.mvvmkoin6.data.koin
 
 import androidx.room.Room
-import by.hometrainng.mvvmkoinhw6.room.AppDatabase
+import by.hometrainng.mvvmkoin6.data.database.AppDatabase
 import org.koin.dsl.module
 
 val databaseModule = module {
