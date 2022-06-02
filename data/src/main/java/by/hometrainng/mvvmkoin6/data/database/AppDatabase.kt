@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import by.hometrainng.mvvmkoin6.data.model.BeerEntity
 
 @Database(entities = [BeerEntity::class], version = 1)
-abstract class AppDatabase : RoomDatabase() {
+internal abstract class AppDatabase : RoomDatabase() {
 
     abstract fun beerDao(): BeerDao
 }

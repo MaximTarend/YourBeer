@@ -2,10 +2,8 @@ package by.hometrainng.mvvmkoinhw6.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import by.hometrainng.mvvmkoinhw6.model.Beer
 import by.hometrainng.mvvmkoinhw6.model.LceState
 import by.hometrainng.mvvmkoinhw6.repository.BeerRepository
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 
 class DetailsViewModel(

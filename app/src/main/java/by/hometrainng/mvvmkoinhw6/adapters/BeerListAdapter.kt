@@ -6,10 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import by.hometrainng.mvvmkoin6.domain.model.Beer
 import by.hometrainng.mvvmkoinhw6.databinding.ListItemBinding
 import by.hometrainng.mvvmkoinhw6.databinding.LoadingItemBinding
-import by.hometrainng.mvvmkoinhw6.model.Beer
-import by.hometrainng.mvvmkoinhw6.model.LceState
 import coil.load
 
 class BeerListAdapter(

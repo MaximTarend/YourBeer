@@ -7,7 +7,7 @@ import androidx.room.Query
 import by.hometrainng.mvvmkoin6.data.model.BeerEntity
 
 @Dao
-interface BeerDao {
+internal interface BeerDao {
 
     @Query("SELECT * FROM beerentity")
     suspend fun getBeers(): List<BeerEntity>

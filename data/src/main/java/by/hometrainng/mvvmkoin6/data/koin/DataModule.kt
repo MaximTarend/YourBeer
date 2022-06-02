@@ -6,6 +6,7 @@ val dataModule = module {
     includes(
         databaseModule,
         repositoryModule,
-        networkModule
+        networkModule,
+        useCaseModule
     )
 }

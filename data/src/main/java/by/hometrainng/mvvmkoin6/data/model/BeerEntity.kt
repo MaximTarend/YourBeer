@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class BeerEntity(
+internal data class BeerEntity(
     @PrimaryKey
     val id: Int,
     val name: String,

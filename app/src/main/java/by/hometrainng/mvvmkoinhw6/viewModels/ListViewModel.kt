@@ -1,17 +1,13 @@
 package by.hometrainng.mvvmkoinhw6.viewModels
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import by.hometrainng.mvvmkoinhw6.model.Beer
-import by.hometrainng.mvvmkoinhw6.model.LceState
-import by.hometrainng.mvvmkoinhw6.repository.BeerRepository
-import by.hometrainng.mvvmkoinhw6.room.AppDatabase
+import by.hometrainng.mvvmkoin6.domain.repository.BeerRepository
+import by.hometrainng.mvvmkoin6.domain.usecase.GetBeersUseCase
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 
 class ListViewModel(
-    private val appDatabase: AppDatabase,
-    private val beerRepository: BeerRepository
+    private val getBeersUseCase: GetBeersUseCase
 ) : ViewModel() {
 
     private var isLoading = false
@@ -26,6 +22,11 @@ class ListViewModel(
     }
 
     val dataFlow = loadMoreFlow
+        .map {
+            getBeersUseCase(currentPage, PAGE_SIZE).getOrDefault(emptyList())
+        }
+
+/*    val dataFlow = loadMoreFlow
         .filter { !isLoading }
         .onEach { isLoading = true }
         .map {
@@ -46,7 +47,7 @@ class ListViewModel(
             scope = viewModelScope,
             started = SharingStarted.Eagerly,
             replay = 1
-        )
+        )*/
 
     fun onLoadMore() {
         loadMoreFlow.tryEmit(Unit)

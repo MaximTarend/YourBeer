@@ -8,13 +8,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import by.hometrainng.mvvmkoinhw6.databinding.FragmentRandomBeerBinding
-import by.hometrainng.mvvmkoinhw6.model.Beer
 import by.hometrainng.mvvmkoinhw6.model.LceState
 import by.hometrainng.mvvmkoinhw6.viewModels.RandomBeerViewModel
 import coil.load
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RandomBeerFragment: Fragment() {
