@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import by.hometrainng.mvvmkoin6.domain.model.BeerDetails
 import by.hometrainng.mvvmkoinhw6.databinding.FragmentBeerDetailsBinding
 import by.hometrainng.mvvmkoinhw6.model.LceState
 import by.hometrainng.mvvmkoinhw6.viewModels.DetailsViewModel
@@ -48,7 +49,7 @@ class BeerDetailsFragment: Fragment() {
                 .dataFlow
                 .onEach {
                     when(it) {
-                        is LceState.Content -> {
+                        is LceState.Content<BeerDetails> -> {
                             val beer = it.data
                             image.load(beer.imageURL)
                             name.text = beer.name

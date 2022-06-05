@@ -8,8 +8,12 @@ import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
 val viewModelModule = module {
+//    viewModel { ListViewModel(get(), get(), get()) }
     viewModelOf(::ListViewModel)
+
     viewModel { (id: Int) -> DetailsViewModel(id, get()) }
-/*    viewModelOf(::RandomBeerViewModel)*/
-    viewModel { RandomBeerViewModel(get()) }
+//    viewModelOf(::DetailsViewModel) - это сработает так же?
+
+    viewModelOf(::RandomBeerViewModel)
+//    viewModel { RandomBeerViewModel(get()) }
 }

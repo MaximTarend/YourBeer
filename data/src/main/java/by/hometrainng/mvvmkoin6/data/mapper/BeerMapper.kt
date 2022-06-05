@@ -37,3 +37,11 @@ internal fun BeerEntity.toDomainModel(): Beer {
         imageURL = imageURL
     )
 }
+
+internal fun Beer.toBeerEntity(): BeerEntity {
+    return BeerEntity(
+        id = id,
+        name = name,
+        imageURL = imageURL
+    )
+}

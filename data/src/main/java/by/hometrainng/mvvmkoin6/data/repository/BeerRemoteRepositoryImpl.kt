@@ -5,9 +5,9 @@ import by.hometrainng.mvvmkoin6.data.mapper.toDetailsDomainModel
 import by.hometrainng.mvvmkoin6.data.mapper.toDomainModels
 import by.hometrainng.mvvmkoin6.domain.model.Beer
 import by.hometrainng.mvvmkoin6.domain.model.BeerDetails
-import by.hometrainng.mvvmkoin6.domain.repository.BeerRepository
+import by.hometrainng.mvvmkoin6.domain.repository.BeerRemoteRepository
 
-internal class BeerRemoteRepository(private val beerApi: BeerApi) : BeerRepository {
+internal class BeerRemoteRepositoryImpl(private val beerApi: BeerApi) : BeerRemoteRepository {
     override suspend fun getAllBeers(page: Int, perPage: Int): Result<List<Beer>> {
         return runCatching {
             beerApi.getAllBeers(page, perPage)

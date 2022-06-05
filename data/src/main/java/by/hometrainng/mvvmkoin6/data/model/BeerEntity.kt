@@ -9,7 +9,7 @@ internal data class BeerEntity(
     @PrimaryKey
     val id: Int,
     val name: String,
-    val description: String,
+//    val description: String,
     @ColumnInfo(name = "image_url")
     val imageURL: String
 )

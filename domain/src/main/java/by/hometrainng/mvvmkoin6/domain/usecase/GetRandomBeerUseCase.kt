@@ -1,11 +1,11 @@
 package by.hometrainng.mvvmkoin6.domain.usecase
 
 import by.hometrainng.mvvmkoin6.domain.model.BeerDetails
-import by.hometrainng.mvvmkoin6.domain.repository.BeerRepository
+import by.hometrainng.mvvmkoin6.domain.repository.BeerRemoteRepository
 
-class GetRandomBeerUseCase(private val beerRepository: BeerRepository) {
+class GetRandomBeerUseCase(private val beerRemoteRepository: BeerRemoteRepository) {
 
     suspend operator fun invoke(): Result<BeerDetails> {
-        return beerRepository.getRandomBeer()
+        return beerRemoteRepository.getRandomBeer()
     }
 }
