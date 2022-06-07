@@ -12,4 +12,6 @@ internal val databaseModule = module {
             "app_database.db"
         ).build()
     }
+
+    single { get<AppDatabase>().beerDao() }
 }

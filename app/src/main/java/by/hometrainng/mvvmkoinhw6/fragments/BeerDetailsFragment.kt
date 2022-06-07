@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.setupWithNavController
 import by.hometrainng.mvvmkoin6.domain.model.BeerDetails
 import by.hometrainng.mvvmkoinhw6.databinding.FragmentBeerDetailsBinding
 import by.hometrainng.mvvmkoinhw6.model.LceState
@@ -44,6 +46,8 @@ class BeerDetailsFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
+
+            toolbar.setupWithNavController(findNavController())
 
             detailsViewModel
                 .dataFlow

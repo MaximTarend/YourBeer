@@ -4,6 +4,6 @@ data class BeerDetails(
     val id: Int,
     val name: String,
     val description: String,
-    val imageURL: String,
+    val imageURL: String?,
 //    val foodPairing: String
 )

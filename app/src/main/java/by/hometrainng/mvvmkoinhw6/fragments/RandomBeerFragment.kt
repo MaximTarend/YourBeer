@@ -53,7 +53,7 @@ class RandomBeerFragment: Fragment() {
                                 val beer = it.data
                                 println()
                                 name.text = beer.name
-                                image.load(beer.imageURL)
+                                image.load(beer.imageURL ?: "")
                                 textView.text = beer.description
                                 image.isVisible = true
                                 textView.isVisible = true
