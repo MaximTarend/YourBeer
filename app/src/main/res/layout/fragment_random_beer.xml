@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="?colorOnPrimary">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -36,12 +36,12 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="6dp"
-        android:textColor="@color/black"
         android:textSize="@dimen/text_size_20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_bar"
-        tools:text="name" />
+        tools:text="name"
+        style="@style/ColoredTextStyle" />
 
 
     <ScrollView
@@ -64,7 +64,7 @@
             android:padding="10dp"
             tools:text="test"
             android:textSize="@dimen/text_size_20"
-            android:textColor="@color/black"/>
+            style="@style/ColoredTextStyle" />
 
     </ScrollView>
 
@@ -78,6 +78,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textSize="@dimen/text_size_20"
-        android:textColor="@color/black"/>
+        android:textColor="?colorOnSecondary"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

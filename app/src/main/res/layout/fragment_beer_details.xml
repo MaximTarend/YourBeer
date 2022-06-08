@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/character"
-    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="?colorOnPrimary">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -18,8 +18,7 @@
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="Beer Details"
-            app:titleTextColor="@color/white" />
+            app:title="Beer Details" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <ImageView
@@ -37,8 +36,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textSize="@dimen/text_size_25"
-        android:textColor="@color/black"
-        tools:text="name" />
+        tools:text="name"
+        style="@style/ColoredTextStyle" />
 
     <ScrollView
         android:id="@+id/scroll_description"
@@ -51,8 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_20"
-            android:textColor="@color/black"
-            tools:text="Description" />
+            tools:text="Description"
+            style="@style/ColoredTextStyle" />
 
     </ScrollView>
 

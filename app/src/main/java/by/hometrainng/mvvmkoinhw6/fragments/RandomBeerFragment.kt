@@ -40,37 +40,32 @@ class RandomBeerFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            image.isVisible = false
-            textView.isVisible = false
-            name.isVisible = false
-            buttomRandom.setOnClickListener{
 
-                randomBeerViewModel
-                    .loadRandomFlow
-                    .onEach {
-                        when(it) {
-                            is LceState.Content<BeerDetails> -> {
-                                val beer = it.data
-                                println()
-                                name.text = beer.name
-                                image.load(beer.imageURL ?: "")
-                                textView.text = beer.description
-                                image.isVisible = true
-                                textView.isVisible = true
-                                name.isVisible = true
-                            }
-                            is LceState.Error -> {
-                                Snackbar.make(
-                                    root,
-                                    it.throwable.message ?: "Error",
-                                    Snackbar.LENGTH_SHORT
-                                ).show()
-                            }
-                            LceState.Loading -> { }
-                        }
-                    }
-                    .launchIn(viewLifecycleOwner.lifecycleScope)
+            buttomRandom.setOnClickListener{
+                randomBeerViewModel.onClickedRandom()
             }
+            randomBeerViewModel
+                .loadRandomFlow
+                .onEach {
+                    when(it) {
+                        is LceState.Content<BeerDetails> -> {
+                            val beer = it.data
+                            println()
+                            name.text = beer.name
+                            image.load(beer.imageURL ?: "")
+                            textView.text = beer.description
+                        }
+                        is LceState.Error -> {
+                            Snackbar.make(
+                                root,
+                                it.throwable.message ?: "Error",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                        }
+                        LceState.Loading -> { }
+                    }
+                }
+                .launchIn(viewLifecycleOwner.lifecycleScope)
         }
     }
 

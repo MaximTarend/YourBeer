@@ -3,4 +3,5 @@
     <string name="list_title">List</string>
     <string name="random_title">Random</string>
     <string name="get_random_beer_button">Get random beer</string>
+    <string name="settings_title">Settings</string>
 </resources>
