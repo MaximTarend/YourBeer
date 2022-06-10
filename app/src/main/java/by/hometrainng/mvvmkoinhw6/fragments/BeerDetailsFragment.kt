@@ -50,7 +50,7 @@ class BeerDetailsFragment: Fragment() {
             toolbar.setupWithNavController(findNavController())
 
             detailsViewModel
-                .dataFlow
+                .loadDetailsFlow
                 .onEach {
                     when(it) {
                         is LceState.Content<BeerDetails> -> {

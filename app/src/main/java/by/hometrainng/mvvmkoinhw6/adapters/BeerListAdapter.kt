@@ -43,23 +43,3 @@ class BeerListAdapter(
         holder.bind(getItem(position))
     }
 }
-
-class ItemViewHolder(
-    private val binding: ListItemBinding,
-    private val onClicked: (Beer) -> Unit
-): RecyclerView.ViewHolder(binding.root) {
-    fun bind (item: Beer) {
-        with(binding) {
-            image.load(item.imageURL)
-            name.text = item.name
-
-            root.setOnClickListener {
-                onClicked(item)
-            }
-        }
-    }
-}
-
-class LoadingViewHolder(
-    binding: LoadingItemBinding
-): RecyclerView.ViewHolder(binding.root)

@@ -11,19 +11,16 @@ class DetailsViewModel(
     private val getBeerDetailsUseCase: GetBeerDetailsUseCase
 ): ViewModel() {
 
-    private val loadDetailsFlow = flow {
+     val loadDetailsFlow = flow {
         val state = getBeerDetailsUseCase(beerID)
             .fold(
                 onSuccess = { LceState.Content(it) },
                 onFailure = { LceState.Error(it) }
             )
         emit(state)
-    }
-
-    val dataFlow = loadDetailsFlow
-        .shareIn(
-            scope = viewModelScope,
-            started = SharingStarted.Eagerly,
-            replay = 1
-        )
+    }        .shareIn(
+         scope = viewModelScope,
+         started = SharingStarted.Eagerly,
+         replay = 1
+     )
 }

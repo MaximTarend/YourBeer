@@ -43,6 +43,9 @@ class RandomBeerFragment: Fragment() {
 
             buttomRandom.setOnClickListener{
                 randomBeerViewModel.onClickedRandom()
+                name.isVisible = true
+                image.isVisible = true
+                textView.isVisible = true
             }
             randomBeerViewModel
                 .loadRandomFlow
