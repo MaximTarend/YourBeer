@@ -1,4 +1,4 @@
-package by.hometrainng.mvvmkoinhw6.map
+package by.hometrainng.mvvmkoin6.data.map
 
 import android.Manifest
 import android.content.Context
@@ -6,8 +6,8 @@ import android.location.Location
 import android.os.Looper
 import androidx.annotation.RequiresPermission
 import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationResult
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
