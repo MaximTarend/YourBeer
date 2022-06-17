@@ -22,10 +22,6 @@ class ListViewModel(
         replay = 1, extraBufferCapacity = 0, onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    init {
-        onLoadMore()
-    }
-
     val dataFlow = loadMoreFlow
         .filter { !isLoading }
         .onEach { isLoading = true }
@@ -48,6 +44,10 @@ class ListViewModel(
             started = SharingStarted.Eagerly,
             replay = 1
         )
+
+    init {
+        onLoadMore()
+    }
 
     fun onLoadMore() {
         loadMoreFlow.tryEmit(Unit)
