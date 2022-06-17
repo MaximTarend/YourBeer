@@ -8,5 +8,5 @@ interface BreweryRemoteRepository {
 
     suspend fun getBreweryById(id : String) : Result<Brewery>
 
-    suspend fun getBreweriesByDist(byDist : String, page: Int, perPage: Int) : Result<List<Brewery>>
+    suspend fun getBreweriesByDist(location : String, page: Int, perPage: Int) : Result<List<Brewery>>
 }

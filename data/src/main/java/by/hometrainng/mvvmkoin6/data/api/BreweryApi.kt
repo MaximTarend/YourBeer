@@ -18,9 +18,9 @@ internal interface BreweryApi {
         @Path("id") id : String
     ) : BreweryDTO
 
-    @GET("breweries/{id}")
+    @GET("breweries/{by_dist}")
     suspend fun getBreweriesByDist(
-        @Path("by_dist") byDist : String, // 45.00,45.00
+        @Path("by_dist") location : String, // 45.00,45.00
         @Query("page") page: Int,
         @Query("per_page") perPage: Int
     ) : List<BreweryDTO>
