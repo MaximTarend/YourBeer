@@ -44,22 +44,25 @@ class BottomSheetFragment: BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bottomSheetInfoViewModel
-            .loadInfoFlow
-            .onEach {
-                when(it) {
-                    is LceState.Content<Brewery> -> {
-                        val brewery = it.data
-                        binding.title.text = brewery.name
-                        binding.textLink.text = brewery.websiteUrl
-
-                    }
-                    is LceState.Error -> {
-                        Toast.makeText(requireContext(), it.throwable.message, Toast.LENGTH_SHORT).show()
+        with(binding) {
+            bottomSheetInfoViewModel
+                .loadInfoFlow
+                .onEach {
+                    when(it) {
+                        is LceState.Content<Brewery> -> {
+                            val brewery = it.data
+                            title.text = brewery.name
+                            textLink.text = brewery.websiteUrl
+                            textLocation.text = "${brewery.latitude}, ${brewery.longitude}"
+                        }
+                        is LceState.Error -> {
+                            Toast.makeText(requireContext(), it.throwable.message, Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
-            }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
+                .launchIn(viewLifecycleOwner.lifecycleScope)
+        }
+
     }
 
     override fun onDestroyView() {

@@ -25,5 +25,4 @@ class BottomSheetInfoViewModel(
         started = SharingStarted.Eagerly,
         replay = 1
     )
-
 }

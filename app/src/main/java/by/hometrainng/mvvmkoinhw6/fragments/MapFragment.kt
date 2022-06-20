@@ -37,9 +37,9 @@ class MapFragment : Fragment() {
     private val binding get() = requireNotNull(_binding)
 
     private val locationService by inject<LocationService>()
-    private var currentLocation: Location? = null
 
     private var googleMap: GoogleMap? = null
+
     private var locationListener : LocationSource.OnLocationChangedListener? = null
 
     private val permissionLauncher = registerForActivityResult(
@@ -52,6 +52,8 @@ class MapFragment : Fragment() {
             }
         }
     }
+
+    private var currentLocation: Location? = null
 
     private val breweryMapViewModel by viewModel<BreweryMapViewModel> {
         parametersOf(
@@ -69,7 +71,6 @@ class MapFragment : Fragment() {
             .root
     }
 
-    @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
