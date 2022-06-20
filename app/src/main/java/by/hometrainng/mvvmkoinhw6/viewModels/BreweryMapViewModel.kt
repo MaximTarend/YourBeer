@@ -11,8 +11,7 @@ import kotlinx.coroutines.flow.*
 
 class BreweryMapViewModel(
     private val location: String,
-    private val getBreweriesByDistUseCase: GetBreweriesByDistUseCase,
-    private val getBreweryByIdUseCase: GetBreweryByIdUseCase
+    private val getBreweriesByDistUseCase: GetBreweriesByDistUseCase
 ) : ViewModel() {
 
     private var isLoading = false

@@ -9,6 +9,22 @@
         android:id="@+id/map"
         android:name="by.hometrainng.mvvmkoinhw6.fragments.MapFragment"
         tools:layout="@layout/fragment_map">
+
+        <action
+            android:id="@+id/to_bottom_info"
+            app:destination="@id/bottom_info"/>
+
     </fragment>
+
+    <dialog
+        android:id="@+id/bottom_info"
+        android:name="by.hometrainng.mvvmkoinhw6.fragments.BottomSheetFragment"
+        tools:layout="@layout/bottom_sheet_info">
+
+        <argument
+            android:name="breweryID"
+            app:argType="string"/>
+
+    </dialog>
 
 </navigation>

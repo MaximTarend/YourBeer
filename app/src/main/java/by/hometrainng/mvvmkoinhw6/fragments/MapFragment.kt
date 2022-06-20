@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 
 import by.hometrainng.mvvmkoinhw6.databinding.FragmentMapBinding
 import by.hometrainng.mvvmkoin6.data.map.LocationService
@@ -38,16 +39,9 @@ class MapFragment : Fragment() {
     private val locationService by inject<LocationService>()
     private var currentLocation: Location? = null
 
-    private val breweryMapViewModel by viewModel<BreweryMapViewModel> {
-        parametersOf(
-            "${currentLocation?.latitude},${currentLocation?.longitude}"
-        )
-    }
-
     private var googleMap: GoogleMap? = null
     private var locationListener : LocationSource.OnLocationChangedListener? = null
 
-    @SuppressLint("MissingPermission") // лучше обернуть в чек
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isPermissionGranted ->
@@ -57,6 +51,12 @@ class MapFragment : Fragment() {
                 currentLocation?.let(::moveCameraToLocation)
             }
         }
+    }
+
+    private val breweryMapViewModel by viewModel<BreweryMapViewModel> {
+        parametersOf(
+            "${currentLocation?.latitude},${currentLocation?.longitude}"
+        )
     }
 
     override fun onCreateView(
@@ -116,12 +116,17 @@ class MapFragment : Fragment() {
                         }
                     }
                     .launchIn(viewLifecycleOwner.lifecycleScope)
+
+                googleMap?.setOnMarkerClickListener { marker->
+                    val breweryID = marker.tag.toString()
+
+                    findNavController().navigate(
+                        MapFragmentDirections.toBottomInfo(breweryID)
+                    )
+                    false
+                }
             }
             mapView.onCreate(savedInstanceState)
-            googleMap?.setOnMarkerClickListener {
-                it.tag
-                false
-            }
         }
 
 /*        ViewCompat.setOnApplyWindowInsetsListener(binding.mapView) { view, insets ->
