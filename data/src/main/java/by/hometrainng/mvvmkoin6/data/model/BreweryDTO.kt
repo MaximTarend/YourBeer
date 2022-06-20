@@ -6,8 +6,8 @@ import com.google.gson.annotations.SerializedName
 internal data class BreweryDTO(
     val id: String,
     val name: String,
-    val longitude: String,
-    val latitude: String,
+    val longitude: String? = "",
+    val latitude: String? = "",
     @SerializedName("website_url")
-    val websiteUrl: String
+    val websiteUrl: String?
 )

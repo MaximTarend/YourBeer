@@ -15,22 +15,34 @@ import androidx.lifecycle.lifecycleScope
 
 import by.hometrainng.mvvmkoinhw6.databinding.FragmentMapBinding
 import by.hometrainng.mvvmkoin6.data.map.LocationService
+import by.hometrainng.mvvmkoin6.domain.model.Brewery
+import by.hometrainng.mvvmkoinhw6.viewModels.BreweryMapViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.LocationSource
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
+@SuppressLint("MissingPermission")
 class MapFragment : Fragment() {
 
     private var _binding: FragmentMapBinding? = null
     private val binding get() = requireNotNull(_binding)
 
     private val locationService by inject<LocationService>()
+    private var currentLocation: Location? = null
+
+    private val breweryMapViewModel by viewModel<BreweryMapViewModel> {
+        parametersOf(
+            "${currentLocation?.latitude},${currentLocation?.longitude}"
+        )
+    }
 
     private var googleMap: GoogleMap? = null
     private var locationListener : LocationSource.OnLocationChangedListener? = null
@@ -41,7 +53,8 @@ class MapFragment : Fragment() {
     ) { isPermissionGranted ->
         if (isPermissionGranted) {
             viewLifecycleOwner.lifecycleScope.launch {
-                locationService.getCurrentLocation()?.let(::moveCameraToLocation)
+                currentLocation = locationService.getCurrentLocation()
+                currentLocation?.let(::moveCameraToLocation)
             }
         }
     }
@@ -69,33 +82,47 @@ class MapFragment : Fragment() {
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
-        binding.mapView.getMapAsync { map ->
-            googleMap = map.apply {
-                uiSettings.isCompassEnabled = true
-                uiSettings.isZoomControlsEnabled = true
-                uiSettings.isMyLocationButtonEnabled = true
+        with(binding) {
 
-                isMyLocationEnabled = hasLocationPermission()
-
-                setLocationSource(object : LocationSource {
-                    override fun activate(listener: LocationSource.OnLocationChangedListener?) {
-                        locationListener = listener
-                    }
-
-                    override fun deactivate() {
-                        locationListener = null
-                    }
-                })
+            button.setOnClickListener {
+                breweryMapViewModel.onLoadMore()
             }
-            googleMap?.addMarker(
-                MarkerOptions()
-                    .title("marker")
-                    .position(
-                        LatLng(45.45, 45.45)
-                    )
-            )
+
+            mapView.getMapAsync { map ->
+                googleMap = map.apply {
+                    uiSettings.isCompassEnabled = true
+                    uiSettings.isZoomControlsEnabled = true
+                    uiSettings.isMyLocationButtonEnabled = true
+
+                    isMyLocationEnabled = hasLocationPermission()
+
+                    setLocationSource(object : LocationSource {
+                        override fun activate(listener: LocationSource.OnLocationChangedListener?) {
+                            locationListener = listener
+                        }
+
+                        override fun deactivate() {
+                            locationListener = null
+                        }
+                    })
+                }
+
+                breweryMapViewModel
+                    .loadBreweriesByDistFlow
+                    .onEach {
+                        println()
+                        it.forEach { brewery ->
+                            addBreweryMarkers(brewery)
+                        }
+                    }
+                    .launchIn(viewLifecycleOwner.lifecycleScope)
+            }
+            mapView.onCreate(savedInstanceState)
+            googleMap?.setOnMarkerClickListener {
+                it.tag
+                false
+            }
         }
-        binding.mapView.onCreate(savedInstanceState)
 
 /*        ViewCompat.setOnApplyWindowInsetsListener(binding.mapView) { view, insets ->
             val systemBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -107,6 +134,21 @@ class MapFragment : Fragment() {
             )
             WindowInsetsCompat.CONSUMED
         }*/
+    }
+
+    private fun addBreweryMarkers(brewery: Brewery) {
+        val marker = googleMap?.addMarker(
+            MarkerOptions()
+                .title(brewery.name)
+                .position(
+                    LatLng(
+                        brewery.latitude?.toDouble() ?: 0.0,
+                        brewery.longitude?.toDouble() ?: 0.0
+                    )
+                )
+                .alpha(0.6f)
+        )
+        marker?.tag = brewery.id
     }
 
     override fun onStart() {

@@ -1,5 +1,6 @@
 package by.hometrainng.mvvmkoin6.data.koin
 
+import by.hometrainng.mvvmkoin6.data.api.BeerApi
 import by.hometrainng.mvvmkoin6.data.repository.BeerLocalRepositoryImpl
 import by.hometrainng.mvvmkoin6.data.repository.BeerRemoteRepositoryImpl
 import by.hometrainng.mvvmkoin6.data.repository.BreweryRemoteRepositoryImpl
@@ -16,7 +17,7 @@ internal val repositoryModule = module {
 
     singleOf(::BeerRemoteRepositoryImpl) {
         bind<BeerRemoteRepository>()
-        named("beer")
+/*        named("beer")*/
     }
 
 //    single { BeerLocalRepositoryImpl(get()) }.bind<BeerLocalRepository>()
@@ -24,6 +25,6 @@ internal val repositoryModule = module {
 
     singleOf(::BreweryRemoteRepositoryImpl) {
         bind<BreweryRemoteRepository>()
-        named("brewery")
+/*        named("brewery")*/
     }
 }
