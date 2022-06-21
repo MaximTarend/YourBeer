@@ -38,34 +38,26 @@ class MapFragment : Fragment() {
 
     private val locationService by inject<LocationService>()
 
-    private var currentLocation: Location? = null
-
     private var googleMap: GoogleMap? = null
 
     private var locationListener : LocationSource.OnLocationChangedListener? = null
-
-/*    init {
-        viewLifecycleOwner.lifecycleScope.launch {
-            currentLocation = locationService.getCurrentLocation()
-        }
-    }*/
 
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isPermissionGranted ->
         if (isPermissionGranted) {
             viewLifecycleOwner.lifecycleScope.launch {
-                currentLocation = locationService.getCurrentLocation()
-                currentLocation?.let(::moveCameraToLocation)
+                val location = locationService.getCurrentLocation()
+                location.let(::moveCameraToLocation)
             }
         }
     }
 
-    private val breweryMapViewModel by viewModel<BreweryMapViewModel> {
+    private val breweryMapViewModel by viewModel<BreweryMapViewModel>() /*{
         parametersOf(
-            "${currentLocation?.latitude},${currentLocation?.longitude}"
+            currentLocation
         )
-    }
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater,

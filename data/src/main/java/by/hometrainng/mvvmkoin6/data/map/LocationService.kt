@@ -19,7 +19,6 @@ class LocationService(context: Context) {
 
     private val client = LocationServices.getFusedLocationProviderClient(context)
 
-
     // обновляемая локация
     @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     fun getLocationFlow() = callbackFlow {
