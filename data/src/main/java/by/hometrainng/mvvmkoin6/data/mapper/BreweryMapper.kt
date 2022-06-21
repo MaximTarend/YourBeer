@@ -9,7 +9,8 @@ internal fun BreweryDTO.toDomainModel(): Brewery {
         name = name,
         longitude = longitude,
         latitude = latitude,
-        websiteUrl = websiteUrl
+        websiteUrl = websiteUrl,
+        phone = phone
     )
 }
 

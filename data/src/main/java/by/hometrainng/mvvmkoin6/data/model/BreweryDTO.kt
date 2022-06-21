@@ -9,5 +9,6 @@ internal data class BreweryDTO(
     val longitude: String? = "",
     val latitude: String? = "",
     @SerializedName("website_url")
-    val websiteUrl: String?
+    val websiteUrl: String? = "",
+    val phone: String? = ""
 )

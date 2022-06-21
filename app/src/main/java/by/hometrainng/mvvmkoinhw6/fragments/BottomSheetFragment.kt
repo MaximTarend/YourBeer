@@ -1,5 +1,7 @@
 package by.hometrainng.mvvmkoinhw6.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -54,6 +56,7 @@ class BottomSheetFragment: BottomSheetDialogFragment() {
                             title.text = brewery.name
                             textLink.text = brewery.websiteUrl
                             textLocation.text = "${brewery.latitude}, ${brewery.longitude}"
+                            phoneNumber.text = brewery.phone
                         }
                         is LceState.Error -> {
                             Toast.makeText(requireContext(), it.throwable.message, Toast.LENGTH_SHORT).show()
@@ -61,6 +64,15 @@ class BottomSheetFragment: BottomSheetDialogFragment() {
                     }
                 }
                 .launchIn(viewLifecycleOwner.lifecycleScope)
+
+            textLink.setOnClickListener {
+                val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(textLink.text.toString()))
+                startActivity(webIntent)
+            }
+            phoneNumber.setOnClickListener {
+                val phoneIntent = Intent(Intent.ACTION_VIEW, Uri.parse("tel:${textLink.text}"))
+                startActivity(phoneIntent)
+            }
         }
 
     }

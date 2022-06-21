@@ -18,11 +18,11 @@ import by.hometrainng.mvvmkoinhw6.databinding.FragmentMapBinding
 import by.hometrainng.mvvmkoin6.data.map.LocationService
 import by.hometrainng.mvvmkoin6.domain.model.Brewery
 import by.hometrainng.mvvmkoinhw6.viewModels.BreweryMapViewModel
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.LocationSource
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -38,9 +38,17 @@ class MapFragment : Fragment() {
 
     private val locationService by inject<LocationService>()
 
+    private var currentLocation: Location? = null
+
     private var googleMap: GoogleMap? = null
 
     private var locationListener : LocationSource.OnLocationChangedListener? = null
+
+/*    init {
+        viewLifecycleOwner.lifecycleScope.launch {
+            currentLocation = locationService.getCurrentLocation()
+        }
+    }*/
 
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -52,8 +60,6 @@ class MapFragment : Fragment() {
             }
         }
     }
-
-    private var currentLocation: Location? = null
 
     private val breweryMapViewModel by viewModel<BreweryMapViewModel> {
         parametersOf(
