@@ -13,12 +13,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-
 import by.hometrainng.mvvmkoinhw6.databinding.FragmentMapBinding
 import by.hometrainng.mvvmkoin6.data.map.LocationService
 import by.hometrainng.mvvmkoin6.domain.model.Brewery
 import by.hometrainng.mvvmkoinhw6.viewModels.BreweryMapViewModel
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.LocationSource
@@ -28,7 +26,6 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 
 @SuppressLint("MissingPermission")
 class MapFragment : Fragment() {
@@ -36,7 +33,7 @@ class MapFragment : Fragment() {
     private var _binding: FragmentMapBinding? = null
     private val binding get() = requireNotNull(_binding)
 
-    private val locationService by inject<LocationService>()
+    private val breweryMapViewModel by viewModel<BreweryMapViewModel>()
 
     private var googleMap: GoogleMap? = null
 
@@ -46,18 +43,17 @@ class MapFragment : Fragment() {
         ActivityResultContracts.RequestPermission()
     ) { isPermissionGranted ->
         if (isPermissionGranted) {
-            viewLifecycleOwner.lifecycleScope.launch {
-                val location = locationService.getCurrentLocation()
-                location.let(::moveCameraToLocation)
-            }
+
+            breweryMapViewModel
+                .locationFlow
+                .onEach { locationService ->
+                    locationService
+                        .getCurrentLocation()
+                        .let(::moveCameraToLocation)
+                }
+                .launchIn(viewLifecycleOwner.lifecycleScope)
         }
     }
-
-    private val breweryMapViewModel by viewModel<BreweryMapViewModel>() /*{
-        parametersOf(
-            currentLocation
-        )
-    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,12 +70,15 @@ class MapFragment : Fragment() {
 
         permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
 
-        locationService
-            .getLocationFlow()
-            .onEach {
-                locationListener?.onLocationChanged(it)
-            }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
+        breweryMapViewModel
+            .locationFlow
+            .map { service ->
+                service
+                    .getLocationFlow()
+                    .onEach {
+                        locationListener?.onLocationChanged(it)
+                    }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         with(binding) {
 
@@ -127,17 +126,6 @@ class MapFragment : Fragment() {
             }
             mapView.onCreate(savedInstanceState)
         }
-
-/*        ViewCompat.setOnApplyWindowInsetsListener(binding.mapView) { view, insets ->
-            val systemBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            googleMap?.setPadding(
-                systemBarInsets.left,
-                systemBarInsets.top,
-                systemBarInsets.right,
-                systemBarInsets.bottom
-            )
-            WindowInsetsCompat.CONSUMED
-        }*/
     }
 
     private fun addBreweryMarkers(brewery: Brewery) {

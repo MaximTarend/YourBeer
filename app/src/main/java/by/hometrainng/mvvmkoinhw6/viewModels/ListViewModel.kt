@@ -29,7 +29,7 @@ class ListViewModel(
             getBeersUseCase(currentPage, PAGE_SIZE)
                 .fold(
                     onSuccess = { it },
-                    onFailure = { error("залупа рекса") }
+                    onFailure = { emptyList() }
                 )
         }
         .onEach {

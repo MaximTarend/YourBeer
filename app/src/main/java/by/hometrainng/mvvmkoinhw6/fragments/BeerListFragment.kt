@@ -62,8 +62,8 @@ class BeerListFragment : Fragment() {
 
             listViewModel
                 .dataFlow
-                .onEach(adapter::submitList) // можно так
-/*                .onEach {
+/*                .onEach(adapter::submitList) // можно так*/
+                .onEach {
                     if(it == emptyList<Beer>()) {
                         Snackbar.make(
                             root,
@@ -73,7 +73,7 @@ class BeerListFragment : Fragment() {
                     } else {
                         adapter.submitList(it)
                     }
-                }*/
+                }
                 .launchIn(viewLifecycleOwner.lifecycleScope)
         }
     }
