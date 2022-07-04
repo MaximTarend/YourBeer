@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/random"
-        android:name="by.hometrainng.mvvmkoinhw6.fragments.RandomBeerFragment"
+        android:name="by.hometrainng.yourbeer.fragments.RandomBeerFragment"
         tools:layout="@layout/fragment_random_beer">
 
         <action
@@ -22,7 +22,7 @@
 
     <dialog
         android:id="@+id/info"
-        android:name="by.hometrainng.mvvmkoinhw6.fragments.InfoFragment"
+        android:name="by.hometrainng.yourbeer.fragments.InfoFragment"
         tools:layout="@layout/info_fragment">
 
         <argument

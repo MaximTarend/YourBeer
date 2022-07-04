@@ -9,7 +9,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "by.hometrainng.mvvmkoinhw6"
+        applicationId "by.hometrainng.yourbeer"
         minSdk 21
         targetSdk 32
         versionCode 1

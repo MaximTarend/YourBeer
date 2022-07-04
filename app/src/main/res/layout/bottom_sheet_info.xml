@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="25dp"
-            android:text="location"
+            tools:text="location"
             android:textSize="18sp"
             app:layout_constraintTop_toBottomOf="@id/title"
             app:layout_constraintStart_toEndOf="@id/location_icon"

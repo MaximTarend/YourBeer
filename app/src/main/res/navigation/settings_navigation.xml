@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/settings"
-        android:name="by.hometrainng.mvvmkoinhw6.fragments.SettingsFragment"
+        android:name="by.hometrainng.yourbeer.fragments.SettingsFragment"
         tools:layout="@layout/fragment_settings">
     </fragment>
 
